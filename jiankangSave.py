@@ -1,7 +1,7 @@
 import requests
 
 payload = {
-    'uaid': '',  # id
+    'uaid': '',  # oid
     'provinceJg': '',  # 籍贯 xx 省
     'cityJg': '',  # 籍贯 xx 市
     'province': '',  # 当前所在地

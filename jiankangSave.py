@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import requests
 
 payload = {
-    'uaid': '',  # oid
+    'uaid': '',  # id
     'provinceJg': '',  # 籍贯 xx 省
     'cityJg': '',  # 籍贯 xx 市
     'province': '',  # 当前所在地
@@ -59,7 +60,7 @@ def get_cookie():
 
 def jian_kan_save():
     response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
-    print(response.json())
+    print(response.text)
     if response.json()['errorcode'] != '0':
         # TODO WebHook
         pass

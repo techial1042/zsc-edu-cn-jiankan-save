@@ -64,16 +64,14 @@ def get_cookie():
 def jian_kan_save():
     response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
     print(response.text)
-    if response.json()['errorcode'] != '0':
-        # TODO WebHook
-        pass
+    web_hook(response.text)
 
 
-def webhook():
+def web_hook(body):
     """
     方糖 / 钉钉机器人提醒
     """
-    response = requests.post(webHookUrl, headers=headers, data=payload)
+    requests.post(webHookUrl, data=body)
 
 
 if __name__ == '__main__':

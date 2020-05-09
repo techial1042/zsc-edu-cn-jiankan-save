@@ -48,8 +48,23 @@ headers = {
     'Origin': 'http://srv.zsc.edu.cn',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:76.0) Gecko/20100101 Firefox/76.0',
     'Connection': 'keep-alive',
-    'Cookie': ''  # 要修改
 }
 
-response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
-print(response.json())
+
+def get_cookie():
+    response = requests.get('http://srv.zsc.edu.cn/f/wxJKOauthCode?code={}&state=1'.format(payload['uaid']))
+    cookie = response.headers['Set-Cookie']
+    headers['Cookie'] = cookie
+
+
+def jian_kan_save():
+    response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
+    print(response.json())
+    if response.json()['errorcode'] != '0':
+        # TODO WebHook
+        pass
+
+
+if __name__ == '__main__':
+    get_cookie()
+    jian_kan_save()

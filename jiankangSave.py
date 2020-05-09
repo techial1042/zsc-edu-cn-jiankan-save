@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import requests
 
+# 方糖 / 钉钉机器人
+webHookUrl = "https://google.com"
+
 payload = {
     'uaid': '',  # id
     'provinceJg': '',  # 籍贯 xx 省
@@ -64,6 +67,13 @@ def jian_kan_save():
     if response.json()['errorcode'] != '0':
         # TODO WebHook
         pass
+
+
+def webhook():
+    """
+    方糖 / 钉钉机器人提醒
+    """
+    response = requests.post(webHookUrl, headers=headers, data=payload)
 
 
 if __name__ == '__main__':

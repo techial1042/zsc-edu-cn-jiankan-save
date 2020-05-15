@@ -38,7 +38,7 @@ payload = {
     'dealMethod': '',  # 处理办法
     'dealResule': '',  # 诊断结果
     'memberHealth': '正常',  # 家庭成员目前健康状态
-    'memberHealthDes': ''  # 请详细说明家庭成员目前健康状态
+    'memberHealthDes': '',  # 请详细说明家庭成员目前健康状态
     'suikangCode': '绿码' # 个人粤康码持码情况
 }
 

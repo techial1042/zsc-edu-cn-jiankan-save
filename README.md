@@ -14,3 +14,13 @@
 ```bash
 echo "0 */4 * * * /usr/bin/python /root/jiankangSave.py > /dev/null" >> /var/spool/cron/root
 ```
+
+
+
+
+## Changelog
+
+
+### [0.2] - 2020-5-16
+
+- 添加表单修改提醒（防止突然改表单加字段，目前只是粗略判断）

@@ -39,8 +39,17 @@ payload = {
     'dealResule': '',  # 诊断结果
     'memberHealth': '正常',  # 家庭成员目前健康状态
     'memberHealthDes': '',  # 请详细说明家庭成员目前健康状态
-    'suikangCode': '绿码' # 个人粤康码持码情况
+    'suikangCode': '绿码'  # 个人粤康码持码情况
 }
+
+
+def web_hook(body):
+    """
+    方糖 / 钉钉机器人提醒
+    """
+    requests.post(webHookUrl, data=body)
+    # requests.get(webHookUrl)
+
 
 headers = {
     'Host': 'srv.zsc.edu.cn',
@@ -57,22 +66,24 @@ headers = {
 
 
 def get_cookie():
-    response = requests.get('http://srv.zsc.edu.cn/f/wxJKOauthCode?code={}&state=1'.format(payload['uaid']))
+    response = requests.get('http://srv.zsc.edu.cn/f/wxJKOauthCode?code={}'.format(payload['uaid']),
+                            headers=headers)
+    response.encoding = 'utf-8'
     cookie = response.headers['Set-Cookie']
     headers['Cookie'] = cookie
+    check_change(response.text)
+
+
+def check_change(text):
+    count = text.count('field ui-field-contain')
+    if count != 29:
+        web_hook("from change")
 
 
 def jian_kan_save():
     response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
     print(response.text)
     web_hook(response.text)
-
-
-def web_hook(body):
-    """
-    方糖 / 钉钉机器人提醒
-    """
-    requests.post(webHookUrl, data=body)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@
 
 
 
-每隔 4 个小时自动打卡（可以接入使用方糖 / 钉钉机器人）
+每隔 4 个小时自动打卡（可以接入方糖 / 钉钉机器人提醒打卡情况）
 
 ```bash
 echo "0 */4 * * * /usr/bin/python /root/jiankangSave.py > /dev/null" >> /var/spool/cron/root

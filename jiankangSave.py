@@ -77,7 +77,7 @@ def get_cookie():
 
 def check_change(text):
     count = text.count('field ui-field-contain')
-    if count != 29:
+    if count != 30:
         web_hook("from change")
 
 

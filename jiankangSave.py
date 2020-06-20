@@ -12,6 +12,7 @@ payload = {
     'city': '',  # 当前所在地
     'address': '',  # 请详细填写当前住址，必填
     'mobile': '',  # 手机号
+    'touchZhongGaoFlag': '没有',  # 近 14 天内有没有去过中高风险地区   
     'leaveGDFlag58': '否',  # 5月8日后是否离开广东
     'backGDDate58': '',  # 如果已经返回请填写返回广东时间,必填
     'huBeiManFlag2': '否',  # 是否近两周接触过疑似病例或确诊病例

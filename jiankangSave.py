@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
+
 # 方糖 / 钉钉机器人
 webHookUrl = "https://google.com"
 
@@ -50,14 +51,19 @@ def web_hook(body):
     """
     requests.post(webHookUrl, data=body)
     # requests.get(webHookUrl)
-    
+
+
 # fix ServerChan
-def ServerChan(title,content):
-    sckey = " " # your key
-    url = 'https://sc.ftqq.com/' + sckey + '.send'
-    data = {'text':title,'desp':content}
-    result = requests.post(url,data)
+def server_chan(title, content):
+    sckey = " "  # your key
+    url = 'https://sc.ftqq.com/{}.send'.format(sckey)
+    data = {
+        'text': title,
+        'desp': content
+    }
+    result = requests.post(url, data)
     print(result)
+
 
 headers = {
     'Host': 'srv.zsc.edu.cn',
@@ -86,31 +92,33 @@ def check_change(text):
     count = text.count('field ui-field-contain')
     if count != 30:
         # web_hook("from change")
-        ServerChan("Checkin Error","From Changed")
+        server_chan("Checkin Error", "From Changed")
 
 
 def jian_kan_save():
     response = requests.post("http://srv.zsc.edu.cn/f/_jiankangSave", headers=headers, data=payload)
     print(response.text)
     # web_hook(response.text)
-    text1=json.loads(response.text)
-    if(text1["message"]=="提交成功。"):
-        ServerChan("Checkin Success","打卡成功")
+    text1 = json.loads(response.text)
+    if text1["message"] == "提交成功。":
+        server_chan("Checkin Success", "打卡成功")
     else:
-        ServerChan("Checkin Error","打卡失败，请检查")
+        server_chan("Checkin Error", "打卡失败，请检查")
 
 
 # if __name__ == '__main__':
 #    get_cookie()
 #    jian_kan_save()
 
-# compatible wtih Serverless
+# compatible with Serverless
 def main_handler(event, context):
     try:
         get_cookie()
-    except:
-        ServerChan("Checkin Error","GET Cookie Error")
+    except Exception as e:
+        print(e)
+        server_chan("Checkin Error", "GET Cookie Error")
     try:
         jian_kan_save()
-    except:
-        ServerChan("Checkin Error","打卡失败，请检查")
+    except Exception as e:
+        print(e)
+        server_chan("Checkin Error", "打卡失败，请检查")
